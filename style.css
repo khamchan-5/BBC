@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&display=swap');
+
+* { box-sizing: border-box; font-family: 'Phetsarath OT', 'Noto Sans Lao', sans-serif; margin: 0; padding: 0; }
+body { background-color: #f8fafc; padding-bottom: 80px; color: #1e293b; }
+
+.header {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.table-badge { background: #e11d48; color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold; }
+
+.categories { display: flex; gap: 10px; overflow-x: auto; padding: 15px 20px; background: white; border-bottom: 1px solid #e2e8f0; }
+.cat-btn {
+    padding: 8px 16px; border: 1px solid #cbd5e1; border-radius: 20px; background: white;
+    white-space: nowrap; cursor: pointer; font-weight: 500; transition: all 0.2s;
+}
+.cat-btn.active { background: #e11d48; color: white; border-color: #e11d48; }
+
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 20px; }
+.menu-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; flex-direction: column; }
+.menu-img { width: 100%; height: 130px; object-fit: cover; background: #e2e8f0; }
+.menu-info { padding: 12px; display: flex; flex-direction: column; flex: 1; justify-content: space-between; }
+.menu-info h3 { font-size: 0.95rem; margin-bottom: 5px; line-height: 1.3; }
+.price { color: #e11d48; font-weight: bold; font-size: 0.9rem; margin-bottom: 8px; }
+.btn-add { background: #10b981; color: white; border: none; padding: 6px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; }
+
+.bottom-bar {
+    position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #e2e8f0;
+    padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+}
+.action-btns { display: flex; gap: 8px; }
+.btn-action { padding: 8px 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; color: white; font-size: 0.85rem; }
+.btn-call { background: #f59e0b; }
+.btn-bill { background: #3b82f6; }
+.btn-cart { background: #e11d48; padding: 10px 20px; border-radius: 20px; border: none; color: white; font-weight: bold; cursor: pointer; }
+
+.modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 200; justify-content: center; align-items: center; }
+.modal-content { background: white; border-radius: 16px; width: 90%; max-width: 400px; padding: 20px; max-height: 80vh; overflow-y: auto; }
+.cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+.qty-controls button { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #cbd5e1; background: white; cursor: pointer; font-weight: bold; }
+.qty-controls span { margin: 0 8px; font-weight: bold; }

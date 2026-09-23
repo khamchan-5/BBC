@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ປະວັດປະວັດທຸລະກຳ & ຍອດຂາຍ</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&display=swap');
+        * { box-sizing: border-box; font-family: 'Phetsarath OT', 'Noto Sans Lao', sans-serif; }
+        body { background: #f8fafc; padding: 20px; margin: 0; color: #1e293b; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; }
+        .stat-card { background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 25px; }
+        .stat-card h2 { margin: 10px 0 0 0; font-size: 2rem; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background: #f1f5f9; }
+        .btn-back { background: #64748b; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📜 ປະວັດປະວັດທຸລະກຳ & ຍອດຂາຍ</h1>
+            <a href="admin.html" class="btn-back">⬅️ ກັບໜ້າ Admin</a>
+        </div>
+        <div class="stat-card">
+            <div>ຍອດຂາຍລວມທັງໝົດ</div>
+            <h2 id="grand-total">0 ກີບ</h2>
+        </div>
+        <h3>📋 ລາຍການທຸລະກຳທີ່ສຳເລັດແລ້ວ</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>ເວລາ</th>
+                    <th>ໂຕະ</th>
+                    <th>ລາຍການ</th>
+                    <th>ຍອດລວມ</th>
+                </tr>
+            </thead>
+            <tbody id="history-table">
+                <tr><td colspan="4" style="text-align:center; color:#94a3b8;">ກຳລັງໂຫລດຂໍ້ມູນ...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBuSEbFvAoU3Z9X3LktX_SlIm6EMHRRtsg",
+            authDomain: "my-restaurant-3da21.firebaseapp.com",
+            databaseURL: "https://my-restaurant-3da21-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "my-restaurant-3da21",
+            storageBucket: "my-restaurant-3da21.firebasestorage.app",
+            messagingSenderId: "932377209963",
+            appId: "1:932377209963:web:b2b117656e0d7e3366d52e",
+            measurementId: "G-4DQHD8RLB8"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        database.ref('transaction_history').on('value', (snapshot) => {
+            const data = snapshot.val();
+            const tableBody = document.getElementById('history-table');
+            const grandTotalEl = document.getElementById('grand-total');
+            tableBody.innerHTML = '';
+            let totalSales = 0;
+
+            if (data) {
+                Object.values(data).reverse().forEach(item => {
+                    totalSales += item.total || 0;
+                    let itemsSummary = item.items ? item.items.map(i => `${i.name} (${i.quantity})`).join(', ') : '-';
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td>${item.completedAt}</td>
+                            <td><strong>ໂຕະ ${item.table}</strong></td>
+                            <td style="font-size:0.85rem; color:#475569;">${itemsSummary}</td>
+                            <td style="font-weight:bold; color:#10b981;">${(item.total || 0).toLocaleString()} ກີບ</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#94a3b8;">ຍັງບໍ່ມີປະວັດການຊຳລະເງິນ</td></tr>';
+            }
+            grandTotalEl.innerText = `${totalSales.toLocaleString()} ກີບ`;
+        });
+    </script>
+</body>
+</html>

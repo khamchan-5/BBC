@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ເມນູອາຫານອອນໄລນ໌</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="header">
+        <h2>🍜 ເມນູອາຫານ</h2>
+        <span class="table-badge" id="table-display">ໂຕະ --</span>
+    </div>
+
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterCategory('all', this)">ທັງໝົດ</button>
+        <button class="cat-btn" onclick="filterCategory('soup', this)">🍲 ຕົ້ມ / ແກງ</button>
+        <button class="cat-btn" onclick="filterCategory('grill', this)">🍗 ປີ້ງ / ທອດ</button>
+        <button class="cat-btn" onclick="filterCategory('salad', this)">🥗 ຍຳ / ລາບ</button>
+        <button class="cat-btn" onclick="filterCategory('drink', this)">🥤 ເຄື່ອງດື່ມ</button>
+    </div>
+
+    <div id="served-items" style="padding: 10px 20px;"></div>
+
+    <div class="menu-grid" id="menu-grid"></div>
+
+    <div class="bottom-bar">
+        <div class="action-btns">
+            <button class="btn-action btn-call" onclick="callStaff()">🙋‍♂️ ຮຽກພະນັກງານ</button>
+            <button class="btn-action btn-bill" onclick="requestBill()">💰 ເຊັກບິນ</button>
+        </div>
+        <button class="btn-cart" onclick="openCartModal()">
+            🛒 ກະຕ່າ (<span id="cart-count">0</span>)
+        </button>
+    </div>
+
+    <!-- Modal กระต่าสินค้า -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom: 15px;">🛒 ລາຍການໃນກະຕ່າ</h3>
+            <div id="cart-items"></div>
+            <div style="margin-top: 15px; text-align: right; font-weight: bold; font-size: 1.1rem;" id="cart-total">0 ກີບ</div>
+            <div style="margin-top: 20px; display: flex; gap: 10px;">
+                <button style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid #cbd5e1; background: white;" onclick="closeCartModal()">ປິດ</button>
+                <button style="flex: 1; padding: 10px; border-radius: 8px; border: none; background: #e11d48; color: white; font-weight: bold;" onclick="submitOrder()">ສົ່ງອໍເດີ້</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

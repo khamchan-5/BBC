@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ສ້າງ QR Code ປະຈຳໂຕະ 1-15</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap');
+        * { box-sizing: border-box; font-family: 'Phetsarath OT', 'Noto Sans Lao', sans-serif; }
+        body { background: #f8fafc; padding: 20px; text-align: center; }
+        .no-print { margin-bottom: 20px; }
+        .btn-print { background: #3b82f6; color: white; padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem; }
+        .qr-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
+        .qr-card { background: white; padding: 20px; border-radius: 12px; border: 2px solid #cbd5e1; display: flex; flex-direction: column; align-items: center; }
+        .qr-card h2 { margin: 0 0 10px 0; color: #0f172a; }
+        .qr-card img { width: 150px; height: 150px; }
+        @media print { .no-print { display: none; } .qr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; } .qr-card { page-break-inside: avoid; } }
+    </style>
+</head>
+<body>
+
+    <div class="no-print">
+        <h1>📌 QR Code ປະຈຳໂຕະ (1-15)</h1>
+        <button class="btn-print" onclick="window.print()">🖨️ ສັ່ງພິມ QR Code ອອກກະດາດ</button>
+    </div>
+
+    <div class="qr-grid" id="qr-container"></div>
+
+    <script>
+        const baseUrl = "https://khamchan-5.github.io/BBP/index.html?table=";
+        const container = document.getElementById('qr-container');
+
+        for (let i = 1; i <= 15; i++) {
+            const tableUrl = `${baseUrl}${i}`;
+            const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(tableUrl)}`;
+            
+            const card = document.createElement('div');
+            card.className = 'qr-card';
+            card.innerHTML = `
+                <h2>ໂຕະ ${i}</h2>
+                <img src="${qrApi}" alt="QR Code โต๊ะ ${i}">
+                <p style="font-size:0.75rem; color:#64748b; margin-top:8px;">ສະແກນເພື່ອສັ່ງອາຫານ</p>
+            `;
+            container.appendChild(card);
+        }
+    </script>
+</body>
+</html>
